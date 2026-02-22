@@ -30,6 +30,7 @@ export const registerUser = async (req, res) => {
                 username: user.username,
                 email: user.email,
                 profilePicture: user.profilePicture,
+                isAdmin: user.isAdmin,
                 token: generateToken(user._id),
                 message: 'User registered successfully'
             });
@@ -57,6 +58,7 @@ export const loginUser = async (req, res) => {
                 username: user.username,
                 email: user.email,
                 profilePicture: user.profilePicture,
+                isAdmin: user.isAdmin,
                 token: generateToken(user._id),
                 message: 'Logged in successfully'
             });
