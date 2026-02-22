@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Youtube, Instagram, Twitter, Linkedin, MonitorPlay } from 'lucide-react';
+import { Youtube, Instagram, Twitter, Linkedin, MonitorPlay, Github, Facebook } from 'lucide-react';
 
 const Footer = () => {
     return (
@@ -18,6 +18,7 @@ const Footer = () => {
                     <div className="footer-links-col">
                         <h3>Legal Information</h3>
                         <div className="footer-links">
+                            <Link to="/about">About Us</Link>
                             <Link to="/privacy">Privacy Policy</Link>
                             <Link to="/terms">Terms & Conditions</Link>
                             <Link to="/refund">Refund Policy</Link>
@@ -26,18 +27,21 @@ const Footer = () => {
 
                     <div className="footer-social-col">
                         <h3>Follow Us</h3>
-                        <div className="social-icons">
-                            <a href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube" className="social-icon youtube">
-                                <Youtube size={24} />
+                        <div className="social-icons" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                            <a href="https://youtube.com/vloganil" target="_blank" rel="noreferrer" aria-label="YouTube Vlog" className="social-icon youtube" title="Vlog Channel">
+                                <Youtube size={20} />
                             </a>
-                            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon instagram">
-                                <Instagram size={24} />
+                            <a href="https://www.instagram.com/anilmonitor" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon instagram">
+                                <Instagram size={20} />
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter" className="social-icon twitter">
-                                <Twitter size={24} />
+                            <a href="https://twitter.com/anilmonitor" target="_blank" rel="noreferrer" aria-label="Twitter" className="social-icon twitter">
+                                <Twitter size={20} />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon linkedin">
-                                <Linkedin size={24} />
+                            <a href="https://www.linkedin.com/in/anilmonitor" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon linkedin">
+                                <Linkedin size={20} />
+                            </a>
+                            <a href="https://github.com/anilmonitor" target="_blank" rel="noreferrer" aria-label="GitHub" className="social-icon github">
+                                <Github size={20} />
                             </a>
                         </div>
                     </div>
