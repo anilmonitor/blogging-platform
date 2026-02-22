@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminEditUser from './pages/AdminEditUser';
 import './index.css';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/user/:id/edit" element={<AdminEditUser />} />
           </Routes>
         </main>
         <Footer />

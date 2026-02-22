@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Users, FileText, Trash2 } from 'lucide-react';
+import { Users, FileText, Trash2, Edit } from 'lucide-react';
 
 const AdminDashboard = () => {
     const [users, setUsers] = useState([]);
@@ -97,6 +97,7 @@ const AdminDashboard = () => {
                             <thead>
                                 <tr style={{ borderBottom: '2px solid var(--border)' }}>
                                     <th style={{ padding: '1rem' }}>ID</th>
+                                    <th style={{ padding: '1rem' }}>PROFILE</th>
                                     <th style={{ padding: '1rem' }}>NAME</th>
                                     <th style={{ padding: '1rem' }}>USERNAME</th>
                                     <th style={{ padding: '1rem' }}>EMAIL</th>
@@ -108,11 +109,24 @@ const AdminDashboard = () => {
                                 {users.map(user => (
                                     <tr key={user._id} style={{ borderBottom: '1px solid var(--border)' }}>
                                         <td style={{ padding: '1rem' }}>{user._id.substring(0, 8)}...</td>
+                                        <td style={{ padding: '1rem' }}>
+                                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
+                                                <img
+                                                    src={user.profilePicture || 'https://images.unsplash.com/photo-1542435503-956c269c0d5e?auto=format&fit=crop&q=80&w=150'}
+                                                    alt="Profile"
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1542435503-956c269c0d5e?auto=format&fit=crop&q=80&w=150'; }}
+                                                />
+                                            </div>
+                                        </td>
                                         <td style={{ padding: '1rem' }}>{user.name}</td>
                                         <td style={{ padding: '1rem', color: 'var(--primary)' }}>@{user.username}</td>
                                         <td style={{ padding: '1rem' }}>{user.email}</td>
                                         <td style={{ padding: '1rem' }}>{user.isAdmin ? '✅' : '❌'}</td>
-                                        <td style={{ padding: '1rem' }}>
+                                        <td style={{ padding: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                            <Link to={`/admin/user/${user._id}/edit`} className="btn btn-outline" style={{ padding: '0.4rem 0.8rem', textDecoration: 'none' }}>
+                                                <Edit size={16} /> Edit
+                                            </Link>
                                             <button onClick={() => handleDeleteUser(user._id)} className="btn btn-danger" style={{ padding: '0.4rem 0.8rem' }} disabled={user.username === 'admin'}>
                                                 <Trash2 size={16} /> Delete
                                             </button>

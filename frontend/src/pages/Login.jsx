@@ -31,11 +31,11 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                     {error && <div className="error" style={{ color: 'var(--danger)', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
                     <div className="form-group">
-                        <label className="form-label">Email Address</label>
+                        <label className="form-label">Username or Email</label>
                         <input
-                            type="email"
+                            type="text"
                             className="form-input"
-                            placeholder="Enter your email"
+                            placeholder="Enter your username or email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required

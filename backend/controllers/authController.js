@@ -47,9 +47,11 @@ export const registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 export const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body; // email might actually be a username too
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({
+            $or: [{ email: email }, { username: email }]
+        });
 
         if (user && (await user.matchPassword(password))) {
             res.json({
@@ -118,6 +120,54 @@ export const deleteUser = async (req, res) => {
             }
             await user.deleteOne();
             res.json({ message: 'User removed' });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Get user by ID
+// @route   GET /api/auth/users/:id
+// @access  Private/Admin
+export const getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).select('-password');
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Update user
+// @route   PUT /api/auth/users/:id
+// @access  Private/Admin
+export const updateUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (user) {
+            user.name = req.body.name || user.name;
+            user.username = req.body.username || user.username;
+            user.email = req.body.email || user.email;
+            user.profilePicture = req.body.profilePicture || user.profilePicture;
+            user.isAdmin = req.body.isAdmin === undefined ? user.isAdmin : req.body.isAdmin;
+
+            const updatedUser = await user.save();
+
+            res.json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                username: updatedUser.username,
+                email: updatedUser.email,
+                profilePicture: updatedUser.profilePicture,
+                isAdmin: updatedUser.isAdmin,
+            });
         } else {
             res.status(404).json({ message: 'User not found' });
         }
