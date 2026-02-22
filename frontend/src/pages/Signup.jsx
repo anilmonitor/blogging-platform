@@ -5,6 +5,7 @@ import axios from 'axios';
 const Signup = () => {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
+    const [profilePicture, setProfilePicture] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
@@ -14,7 +15,10 @@ const Signup = () => {
         e.preventDefault();
         try {
             const config = { headers: { 'Content-Type': 'application/json' } };
-            const { data } = await axios.post('http://localhost:3000/api/auth/register', { name, username, email, password }, config);
+            const payload = { name, username, email, password };
+            if (profilePicture) payload.profilePicture = profilePicture;
+
+            const { data } = await axios.post('http://localhost:3000/api/auth/register', payload, config);
             localStorage.setItem('userInfo', JSON.stringify(data));
             navigate('/');
         } catch (err) {
@@ -66,6 +70,22 @@ const Signup = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
+                    </div>
+
+                    <div className="form-group">
+                        <label className="form-label">Profile Picture URL (Optional)</label>
+                        <input
+                            type="url"
+                            className="form-input"
+                            placeholder="https://example.com/photo.jpg"
+                            value={profilePicture}
+                            onChange={(e) => setProfilePicture(e.target.value)}
+                        />
+                        {profilePicture && (
+                            <div style={{ marginTop: '0.5rem', borderRadius: '50%', overflow: 'hidden', width: '60px', height: '60px', margin: '0.5rem auto 0' }}>
+                                <img src={profilePicture} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} onLoad={(e) => { e.target.style.display = 'block'; }} />
+                            </div>
+                        )}
                     </div>
 
                     <div className="form-group">

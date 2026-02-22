@@ -44,7 +44,12 @@ const Navbar = () => {
                 <div style={{ display: 'flex', gap: '0.8rem', marginLeft: '0.5rem', alignItems: 'center' }}>
                     {userInfo ? (
                         <>
-                            <span style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.9rem' }}>@{userInfo.username}</span>
+                            <Link to="/profile" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}>
+                                <div style={{ width: '32px', height: '32px', borderRadius: '50%', overflow: 'hidden' }}>
+                                    <img src={userInfo.profilePicture || 'https://images.unsplash.com/photo-1542435503-956c269c0d5e?auto=format&fit=crop&q=80&w=150'} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
+                                <span style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.9rem' }}>@{userInfo.username}</span>
+                            </Link>
                             <button onClick={handleLogout} className="nav-link" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Logout</button>
                         </>
                     ) : (
@@ -71,7 +76,10 @@ const Navbar = () => {
                 <Link to="/" className="nav-link" onClick={() => setIsOpen(false)}>Home</Link>
                 <Link to="/about" className="nav-link" onClick={() => setIsOpen(false)}>About Us</Link>
                 {userInfo ? (
-                    <button onClick={() => { handleLogout(); setIsOpen(false); }} className="nav-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', paddingLeft: '1rem', width: '100%' }}>Logout (@{userInfo.username})</button>
+                    <>
+                        <Link to="/profile" className="nav-link" onClick={() => setIsOpen(false)}>My Profile</Link>
+                        <button onClick={() => { handleLogout(); setIsOpen(false); }} className="nav-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', paddingLeft: '1rem', width: '100%' }}>Logout (@{userInfo.username})</button>
+                    </>
                 ) : (
                     <Link to="/login" className="nav-link" onClick={() => setIsOpen(false)}>Login/Sign Up</Link>
                 )}
