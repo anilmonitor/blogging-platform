@@ -5,7 +5,7 @@ import generateToken from '../utils/generateToken.js';
 // @route   POST /api/auth/register
 export const registerUser = async (req, res) => {
     try {
-        const { name, username, email, password } = req.body;
+        const { name, username, email, password, profilePicture } = req.body;
 
         // Check if user already exists
         const userExists = await User.findOne({ $or: [{ email }, { username }] });
@@ -19,7 +19,8 @@ export const registerUser = async (req, res) => {
             name,
             username,
             email,
-            password
+            password,
+            profilePicture: profilePicture || undefined
         });
 
         if (user) {
@@ -28,6 +29,7 @@ export const registerUser = async (req, res) => {
                 name: user.name,
                 username: user.username,
                 email: user.email,
+                profilePicture: user.profilePicture,
                 token: generateToken(user._id),
                 message: 'User registered successfully'
             });
@@ -54,6 +56,7 @@ export const loginUser = async (req, res) => {
                 name: user.name,
                 username: user.username,
                 email: user.email,
+                profilePicture: user.profilePicture,
                 token: generateToken(user._id),
                 message: 'Logged in successfully'
             });

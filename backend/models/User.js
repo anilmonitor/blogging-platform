@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
+    profilePicture: {
+        type: String,
+        default: 'https://images.unsplash.com/photo-1542435503-956c269c0d5e?auto=format&fit=crop&q=80&w=800'
+    },
     email: {
         type: String,
         required: true,
@@ -27,17 +31,12 @@ const UserSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Hash password before saving to the database
-UserSchema.pre('save', async function (next) {
+UserSchema.pre('save', async function () {
     // Only hash the password if it has been modified (or is new)
-    if (!this.isModified('password')) return next();
+    if (!this.isModified('password')) return;
 
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
-    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 // Method to compare passwords
