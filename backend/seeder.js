@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
+import User from './models/User.js';
 import Post from './models/Post.js';
 
 dotenv.config();
@@ -73,7 +74,17 @@ const seedDB = async () => {
         await connectDB();
 
         // Clear existing data 
+        await User.deleteMany();
         await Post.deleteMany();
+
+        // Admin User Creation
+        await User.create({
+            name: "Super Administrator",
+            username: "admin",
+            email: "admin@blog.com",
+            password: "admin",
+            isAdmin: true
+        });
 
         // Insert new dummy data
         await Post.insertMany(dummyPosts);

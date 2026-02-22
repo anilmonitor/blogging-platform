@@ -44,6 +44,9 @@ const Navbar = () => {
                 <div style={{ display: 'flex', gap: '0.8rem', marginLeft: '0.5rem', alignItems: 'center' }}>
                     {userInfo ? (
                         <>
+                            {userInfo.isAdmin && (
+                                <Link to="/admin" className="nav-link" style={{ color: 'var(--danger)', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>Admin</Link>
+                            )}
                             <Link to="/profile" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}>
                                 <div style={{ width: '32px', height: '32px', borderRadius: '50%', overflow: 'hidden' }}>
                                     <img src={userInfo.profilePicture || 'https://images.unsplash.com/photo-1542435503-956c269c0d5e?auto=format&fit=crop&q=80&w=150'} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -77,6 +80,9 @@ const Navbar = () => {
                 <Link to="/about" className="nav-link" onClick={() => setIsOpen(false)}>About Us</Link>
                 {userInfo ? (
                     <>
+                        {userInfo.isAdmin && (
+                            <Link to="/admin" className="nav-link" onClick={() => setIsOpen(false)} style={{ color: 'var(--danger)' }}>Admin Dashboard</Link>
+                        )}
                         <Link to="/profile" className="nav-link" onClick={() => setIsOpen(false)}>My Profile</Link>
                         <button onClick={() => { handleLogout(); setIsOpen(false); }} className="nav-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', paddingLeft: '1rem', width: '100%' }}>Logout (@{userInfo.username})</button>
                     </>
