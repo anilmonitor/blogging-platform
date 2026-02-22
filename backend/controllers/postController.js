@@ -42,6 +42,7 @@ export const createPost = async (req, res) => {
             title,
             description,
             photo,
+            author: req.user.username,
         });
 
         res.status(201).json(post);

@@ -56,6 +56,7 @@ const PostDetails = () => {
                             <Calendar size={16} />
                             {new Date(post.createdAt).toLocaleDateString()}
                         </span>
+                        <span style={{ color: 'var(--primary)' }}>@{post.author || 'admin'}</span>
                         <span>ID: {post._id}</span>
                     </div>
 

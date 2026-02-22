@@ -18,6 +18,9 @@ const PostCard = ({ post, onDelete }) => {
                         <Calendar size={14} />
                         {new Date(post.createdAt).toLocaleDateString()}
                     </span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-main)' }}>
+                        @{post.author || 'admin'}
+                    </span>
                     <span>ID: {post._id.substring(0, 8)}...</span>
                 </div>
 

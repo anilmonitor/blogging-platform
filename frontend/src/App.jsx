@@ -10,6 +10,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import RefundPolicy from './pages/RefundPolicy';
 import AboutUs from './pages/AboutUs';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import './index.css';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/refund" element={<RefundPolicy />} />
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </main>
         <Footer />

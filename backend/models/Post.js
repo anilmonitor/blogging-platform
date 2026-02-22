@@ -14,6 +14,10 @@ const postSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please provide a photo URL from the internet'],
         },
+        author: {
+            type: String,
+            required: [true, 'Please specify the author username'],
+        }
     },
     {
         timestamps: true, // Automatically manages createdAt and updatedAt

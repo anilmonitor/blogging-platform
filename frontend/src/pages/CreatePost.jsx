@@ -9,16 +9,33 @@ const CreatePost = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    // Only logged in users can create posts
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+    React.useEffect(() => {
+        if (!userInfo) {
+            alert("You must be logged in to create a post.");
+            navigate('/login');
+        }
+    }, [navigate, userInfo]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!userInfo) return;
+
         setLoading(true);
 
         try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`,
+                },
+            };
             await axios.post('http://localhost:3000/api/posts', {
                 title,
                 description,
                 photo
-            });
+            }, config);
             navigate('/');
         } catch (error) {
             alert('Error creating post. Check server or data.');
